@@ -1,0 +1,37 @@
+@model website.Models.IdeaModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+
+    <dl class="dl-horizontal">
+        <h2>
+            @Html.DisplayFor(model => model.ProductName)
+        </h2>
+        <dt>
+            @Html.DisplayNameFor(model => model.FundGoal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FundGoal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductContent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductContent)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    <a asp-action="Donate" asp-route-id="@Model.IdeaId">Donate</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

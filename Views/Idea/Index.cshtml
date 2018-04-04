@@ -1,0 +1,53 @@
+@model IEnumerable<website.Models.IdeaModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FundGoal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductContent)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FundGoal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImagePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductContent)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdeaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdeaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdeaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
