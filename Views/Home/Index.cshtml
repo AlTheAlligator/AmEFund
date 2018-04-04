@@ -61,7 +61,7 @@
     @foreach (var item in Model.Skip(4)) {
         <div class="col-md-6">
             <div class="thumbnail">
-                <img src="@item.ImagePath" alt=":(" />
+                <img src="@item.ImagePath" alt=":/" />
                 <div class="caption">
                     <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
                     <p>@Html.DisplayFor(modelItem => item.ProductContent)</p>
