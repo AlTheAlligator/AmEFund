@@ -20,6 +20,19 @@ namespace website.Models
         [Required]
         public string ProductContent { get; set; }
 
+        public string ProductContentPreview { 
+            get { 
+                    int length = ProductContent.Length;
+                    string ending = "";
+                    if (length > 250)
+                    {
+                        length = 247;
+                        ending = "...";
+                    }
+                    return ProductContent.Substring(0, length) + ending; 
+                } 
+            }
+
         [ForeignKey("IdeaId")]
         public virtual List<DonationModel> Donations { get; set; }
     }

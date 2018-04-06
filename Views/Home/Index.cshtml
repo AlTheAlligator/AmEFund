@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<div id="myCarousel" class="carousel slide" style="margin-bottom:10px" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -60,20 +60,20 @@
 <div class="row">
     @foreach (var item in Model.Skip(4)) {
         <div class="col-md-6">
-            <div class="thumbnail">
+            <div class="thumbnail" style="height:50rem">
                 <img src="@item.ImagePath" alt=":/" />
-                <div class="caption">
+                <div class="caption" style="vertical-align:bottom; display:inline-block">
                     <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
-                    <p>@Html.DisplayFor(modelItem => item.ProductContent)</p>
+                    <p>@Html.DisplayFor(modelItem => item.ProductContentPreview)</p>
                     @{ 
-                        string amount = "0";
+                        decimal amount = 0m;
                         if (item.Donations != null)
                         {
-                            amount = item.Donations.Sum(m => m.Amount).ToString();
+                            amount = item.Donations.Sum(m => m.Amount);
                         }
                         
                     }
-                    <p>@Html.DisplayFor(modelItem => amount)</p>
+                    <p>@Html.DisplayFor(modelItem => amount) kr.</p>
                     <a class="btn btn-default" asp-action="Details" asp-controller="Idea" asp-route-id="@item.IdeaId">Details</a>
                 </div>
             </div>

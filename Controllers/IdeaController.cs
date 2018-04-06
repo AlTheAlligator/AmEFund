@@ -22,7 +22,7 @@ namespace website.Controllers
         // GET: Idea
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Idea.ToListAsync());
+            return View(await _context.Idea.Include(m => m.Donations).ToListAsync());
         }
 
         // GET: Idea/Details/5
