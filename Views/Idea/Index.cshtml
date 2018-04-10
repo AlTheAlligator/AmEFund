@@ -47,9 +47,9 @@
             <td>
                 @{ 
                         string amount = "0";
-                        if (modelItem.Donations != null)
+                        if (item.Donations != null)
                         {
-                            amount = modelItem.Donations.Sum(m => m.Amount).ToString();
+                            amount = item.Donations.Sum(m => m.Amount).ToString();
                         }
                         
                     }

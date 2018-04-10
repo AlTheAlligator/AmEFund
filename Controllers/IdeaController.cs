@@ -1,24 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using website.Data;
 using website.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using ImageSharp;
 
 namespace website.Controllers
 {
     public class IdeaController : Controller
     {
         private readonly Context _context;
+        private IHostingEnvironment _env;
 
-        public IdeaController(Context context)
+        public IdeaController(Context context, IHostingEnvironment env)
         {
             _context = context;
+            _env = env;
         }
-
+        
         // GET: Idea
         public async Task<IActionResult> Index()
         {
@@ -42,7 +50,7 @@ namespace website.Controllers
 
             return View(ideaModel);
         }
-
+        [Authorize]
         // GET: Idea/Create
         public IActionResult Create()
         {
@@ -53,20 +61,44 @@ namespace website.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdeaId,ProductName,FundGoal,ImagePath,ProductContent")] IdeaModel ideaModel)
         {
             if (ModelState.IsValid)
             {
-                ideaModel.Donations = new List<DonationModel>();
-                _context.Add(ideaModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (Request.Form.Files.Count > 0)
+                {
+                    var file = Request.Form.Files[0];
+
+                    if (file != null)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(_env.WebRootPath + "/Images", fileName);
+                        using (FileStream output = System.IO.File.Create(path))
+                        {
+                            
+                            await file.CopyToAsync(output);
+                        }
+                        using (Image<Rgba32> image = Image.Load(path))
+                        {
+                            image.Resize(1280,720);
+                            image.Save(path); // Automatic encoder selected based on extension.
+                        }
+                        ideaModel.Donations = new List<DonationModel>();
+                        ideaModel.ImagePath = "/Images/"+fileName;
+                        _context.Add(ideaModel);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+                
             }
             return View(ideaModel);
         }
 
         // GET: Idea/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +118,7 @@ namespace website.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdeaId,ProductName,FundGoal,ImagePath,ProductContent")] IdeaModel ideaModel)
         {
@@ -120,10 +153,10 @@ namespace website.Controllers
         
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Donate(int? id)
+        public async Task<IActionResult> Donate(int? id, [Bind("IdeaId,Amount")] DonationModel donationModel)
         {
             IdeaModel ideaModel = _context.Idea.Include(m => m.Donations).First(m => m.IdeaId == id);
-            ideaModel.Donations.Add(new DonationModel{ Amount = 5 });
+            ideaModel.Donations.Add(donationModel);
             if (ModelState.IsValid)
             {
                 try

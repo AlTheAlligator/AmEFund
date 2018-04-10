@@ -18,3 +18,4 @@ C:\Users\das\Desktop\Old files\website\obj\Debug\netcoreapp2.0\website.AssemblyI
 C:\Users\das\Desktop\Old files\website\obj\Debug\netcoreapp2.0\website.AssemblyInfo.cs
 C:\Users\das\Desktop\Old files\website\obj\Debug\netcoreapp2.0\website.dll
 C:\Users\das\Desktop\Old files\website\obj\Debug\netcoreapp2.0\website.pdb
+C:\Users\das\Desktop\Old files\website\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

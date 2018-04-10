@@ -15,7 +15,6 @@ namespace website.Models
         [Required]
         [DataType(DataType.Currency)]
         public decimal FundGoal { get; set; }
-        [Required]
         public string ImagePath { get; set; }
         [Required]
         public string ProductContent { get; set; }

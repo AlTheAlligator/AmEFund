@@ -19,7 +19,16 @@
                 }
             }
             <h3>Pledged: <strong>@Html.DisplayFor(model => amount) kr.</strong></h3>
-            <a asp-action="Donate" class="btn btn-success btn-lg" style="margin-top: 20px" asp-route-id="@Model.IdeaId">Donate</a>
+            <form asp-action="Donate">
+                <input type="hidden" name="IdeaId" />
+                <div class="form-group">
+                    <label for="Amount" class="control-label"></label>
+                    <input name="Amount" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success btn-lg" style="margin-top: 20px" asp-route-id="@Model.IdeaId" Value="Donate"/>
+                </div>
+            </form>
         </div>
         <div class="col-md-5">
             <img class="img-rounded" style="width:100%" src="@Model.ImagePath" alt=":/" />
