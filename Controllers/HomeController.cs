@@ -20,7 +20,20 @@ namespace website.Controllers
         }
         public IActionResult Index()
         {
-            return View(_context.Idea.Include(m => m.Donations).OrderByDescending(n => n.Donations.Sum(s => s.Amount)).ToList());
+             IEnumerable<IdeaModel> model = _context.Idea.Include(m => m.Donations).ToList();
+            List<IdeaViewModel> vml = new List<IdeaViewModel>();
+            foreach (var item in model)
+            {
+                IdeaViewModel vm = new IdeaViewModel();
+                vm.ProductName = item.ProductName;
+                vm.ProductContent = item.ProductContent;
+                vm.ImagePath = item.ImagePath;
+                vm.IdeaId = item.IdeaId;
+                vm.FundGoal = item.FundGoal;
+                vm.Donations = item.Donations;
+                vml.Add(vm);
+            }
+            return View(vml);
         }
 
         public IActionResult About()

@@ -30,7 +30,20 @@ namespace website.Controllers
         // GET: Idea
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Idea.Include(m => m.Donations).ToListAsync());
+            IEnumerable<IdeaModel> model = await _context.Idea.Include(m => m.Donations).ToListAsync();
+            List<IdeaViewModel> vml = new List<IdeaViewModel>();
+            foreach (var item in model)
+            {
+                IdeaViewModel vm = new IdeaViewModel();
+                vm.ProductName = item.ProductName;
+                vm.ProductContent = item.ProductContent;
+                vm.ImagePath = item.ImagePath;
+                vm.IdeaId = item.IdeaId;
+                vm.FundGoal = item.FundGoal;
+                vm.Donations = item.Donations;
+                vml.Add(vm);
+            }
+            return View(vml);
         }
 
         // GET: Idea/Details/5
@@ -47,8 +60,16 @@ namespace website.Controllers
             {
                 return NotFound();
             }
+           
+            DonationViewModel vm = new DonationViewModel();
+            vm.ProductName = ideaModel.ProductName;
+            vm.ProductContent = ideaModel.ProductContent;
+            vm.ImagePath = ideaModel.ImagePath;
+            vm.IdeaId = ideaModel.IdeaId;
+            vm.FundGoal = ideaModel.FundGoal;
+            vm.Donations = ideaModel.Donations;
 
-            return View(ideaModel);
+            return View(vm);
         }
         [Authorize]
         // GET: Idea/Create
@@ -151,12 +172,16 @@ namespace website.Controllers
         }
 
         
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Donate(int? id, [Bind("IdeaId,Amount")] DonationModel donationModel)
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Donate(int id, [Bind("IdeaId,DonationAmount")]DonationViewModel donationViewModel)
         {
-            IdeaModel ideaModel = _context.Idea.Include(m => m.Donations).First(m => m.IdeaId == id);
-            ideaModel.Donations.Add(donationModel);
+            IdeaModel ideaModel = _context.Idea.Include(m => m.Donations).First(m => m.IdeaId == donationViewModel.IdeaId);
+            DonationModel dm = new DonationModel();
+            dm.Amount = donationViewModel.DonationAmount;
+            dm.IdeaId = donationViewModel.IdeaId;
+            ideaModel.Donations.Add(dm);
             if (ModelState.IsValid)
             {
                 try
@@ -176,9 +201,9 @@ namespace website.Controllers
                         throw;
                     }
                 }
-                return View(nameof(Details), ideaModel);
+                return RedirectToAction("Index", "Home");
             }
-            return View(nameof(Details), ideaModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Idea/Delete/5
