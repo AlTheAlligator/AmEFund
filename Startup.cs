@@ -30,7 +30,7 @@ namespace website
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<Context>(options =>options.UseSqlServer(Configuration.GetConnectionString("IdeaContext")));
+            services.AddDbContext<Context>(options =>options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
              services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<Context>()
