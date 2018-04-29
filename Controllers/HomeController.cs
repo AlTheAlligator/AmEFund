@@ -20,7 +20,7 @@ namespace website.Controllers
         }
         public IActionResult Index()
         {
-             IEnumerable<IdeaModel> model = _context.Idea.Include(m => m.Donations).ToList();
+             IEnumerable<IdeaModel> model = _context.Idea.Include(m => m.Donations).OrderByDescending(m => m.Donations.Sum(n => n.Amount)).ToList();
             List<IdeaViewModel> vml = new List<IdeaViewModel>();
             foreach (var item in model)
             {
