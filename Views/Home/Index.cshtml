@@ -98,21 +98,21 @@
                 <div class="caption" style="vertical-align:bottom; display:inline-block">
                     <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
                     @{
-                        int length = Model.ProductContent.Length;
+                        int length = item.ProductContent.Length;
                         string ending = "";
                         if (length > 250)
                         {
                             length = 247;
                             ending = "...";
                         }
-                        string productContentPreview = Model.ProductContent.Substring(0, length) + ending;
+                        string productContentPreview = item.ProductContent.Substring(0, length) + ending;
                     }
                     <p>@Html.DisplayFor(modelItem => productContentPreview)</p>
                     @{ 
                         string amount = "";
-                        if (Model.Donations != null)
+                        if (item.Donations != null)
                         {
-                            amount = string.Format("{0:C}",Model.Donations.Sum(m => m.Amount));
+                            amount = string.Format("{0:C}",item.Donations.Sum(m => m.Amount));
                         }
                     }
                     <p>$@Html.DisplayFor(modelItem => amount) pledged out of @Html.DisplayFor(modelItem => item.FundGoal)</p>
