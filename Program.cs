@@ -28,6 +28,8 @@ namespace website
 
                 dbContext.Database.Migrate();
             }
+            
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) => 
