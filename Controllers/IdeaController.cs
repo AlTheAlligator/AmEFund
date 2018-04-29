@@ -31,19 +31,8 @@ namespace website.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<IdeaModel> model = await _context.Idea.Include(m => m.Donations).ToListAsync();
-            List<IdeaViewModel> vml = new List<IdeaViewModel>();
-            foreach (var item in model)
-            {
-                IdeaViewModel vm = new IdeaViewModel();
-                vm.ProductName = item.ProductName;
-                vm.ProductContent = item.ProductContent;
-                vm.ImagePath = item.ImagePath;
-                vm.IdeaId = item.IdeaId;
-                vm.FundGoal = item.FundGoal;
-                vm.Donations = item.Donations;
-                vml.Add(vm);
-            }
-            return View(vml);
+            
+            return View(model);
         }
 
         // GET: Idea/Details/5

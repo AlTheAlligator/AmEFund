@@ -13229,17 +13229,17 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\das\\Desktop\\Old files\\website\\website.csproj",
+      "projectUniqueName": "c:\\Users\\das\\Desktop\\Old files\\website\\website.csproj",
       "projectName": "website",
-      "projectPath": "C:\\Users\\das\\Desktop\\Old files\\website\\website.csproj",
+      "projectPath": "c:\\Users\\das\\Desktop\\Old files\\website\\website.csproj",
       "packagesPath": "C:\\Users\\das\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\das\\Desktop\\Old files\\website\\obj\\",
+      "outputPath": "c:\\Users\\das\\Desktop\\Old files\\website\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\das\\Desktop\\Old files\\website\\NuGet.Config",
+        "c:\\Users\\das\\Desktop\\Old files\\website\\NuGet.Config",
         "C:\\Users\\das\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
