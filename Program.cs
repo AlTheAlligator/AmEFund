@@ -19,13 +19,7 @@ namespace website
         {
             var host = BuildWebHost(args);
 
-            MigrateDatabase(host);
-        }
-
-
-        public static IWebHost MigrateDatabase(this IWebHost webHost)
-        {
-            var serviceScopeFactory = (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
+            var serviceScopeFactory = (IServiceScopeFactory)host.Services.GetService(typeof(IServiceScopeFactory));
 
             using (var scope = serviceScopeFactory.CreateScope())
             {
@@ -34,8 +28,6 @@ namespace website
 
                 dbContext.Database.Migrate();
             }
-
-            return webHost;
         }
 
         public static IWebHost BuildWebHost(string[] args) => 
