@@ -99,7 +99,7 @@ namespace website.Controllers
                         ideaModel.ImagePath = "/Images/"+fileName;
                         _context.Add(ideaModel);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 
