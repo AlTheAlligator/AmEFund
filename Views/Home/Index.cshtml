@@ -98,14 +98,14 @@
                 <div class="caption" style="vertical-align:bottom; display:inline-block">
                     <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
                     @{
-                        int length = ProductContent.Length;
+                        int length = Model.ProductContent.Length;
                         string ending = "";
                         if (length > 250)
                         {
                             length = 247;
                             ending = "...";
                         }
-                        string productContentPreview = ProductContent.Substring(0, length) + ending;
+                        string productContentPreview = Model.ProductContent.Substring(0, length) + ending;
                     }
                     <p>@Html.DisplayFor(modelItem => productContentPreview)</p>
                     @{ 
