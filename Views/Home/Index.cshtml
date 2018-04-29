@@ -115,7 +115,7 @@
                             amount = string.Format("{0:C}",item.Donations.Sum(m => m.Amount));
                         }
                     }
-                    <p>$@Html.DisplayFor(modelItem => amount) pledged out of @Html.DisplayFor(modelItem => item.FundGoal)</p>
+                    <p>@Html.DisplayFor(modelItem => amount) pledged out of @Html.DisplayFor(modelItem => item.FundGoal)</p>
                     <a class="btn btn-default" asp-action="Details" asp-controller="Idea" style="position: absolute; bottom:5.5%;" asp-route-id="@item.IdeaId">Details</a>
                 </div>
             </div>
