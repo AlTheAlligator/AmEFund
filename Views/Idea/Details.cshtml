@@ -18,7 +18,7 @@
                     amount = Model.Donations.Sum(m => m.Amount);
                 }
             }
-            <h3>Pledged: <strong>@Html.DisplayFor(model => amount) kr.</strong></h3>
+            <h3>Pledged: <strong>$@Html.DisplayFor(model => amount)</strong></h3>
             @using (Html.BeginForm("Donate", "Idea", new { Id = Model.IdeaId },FormMethod.Post))
             {
                 <input type="hidden" asp-for="IdeaId" />
