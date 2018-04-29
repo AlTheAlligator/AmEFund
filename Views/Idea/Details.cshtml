@@ -12,10 +12,10 @@
             </h1>
             <h3>Goal: <strong>@Html.DisplayFor(model => model.FundGoal)</strong></h3>
             @{ 
-                decimal amount = 0m;
+                string amount = "";
                 if (Model.Donations != null)
                 {
-                    amount = Model.Donations.Sum(m => m.Amount);
+                    amount = string.Format("{0:C}",Model.Donations.Sum(m => m.Amount));
                 }
             }
             <h3>Pledged: <strong>$@Html.DisplayFor(model => amount)</strong></h3>
