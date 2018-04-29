@@ -10,6 +10,7 @@ namespace website.Models
     {
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdeaId { get; set; }
         [DisplayName("Product Name")]
         [Required]

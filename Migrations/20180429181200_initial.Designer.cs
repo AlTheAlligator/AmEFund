@@ -11,14 +11,15 @@ using website.Data;
 namespace website.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20180406204506_Initial")]
-    partial class Initial
+    [Migration("20180429181200_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -38,7 +39,8 @@ namespace website.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -172,7 +174,8 @@ namespace website.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -200,8 +203,7 @@ namespace website.Migrations
 
                     b.Property<decimal>("FundGoal");
 
-                    b.Property<string>("ImagePath")
-                        .IsRequired();
+                    b.Property<string>("ImagePath");
 
                     b.Property<string>("ProductContent")
                         .IsRequired();
