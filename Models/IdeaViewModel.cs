@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,12 +12,16 @@ namespace website.Models
         [Key]
         public int IdeaId { get; set; }
         [Required]
+        [DisplayName("Product Name")]
         public string ProductName { get; set; }
         [Required]
+        [DisplayName("Fund Goal")]
         [DataType(DataType.Currency)]
         public decimal FundGoal { get; set; }
+        [DisplayName("Image")]
         public string ImagePath { get; set; }
         [Required]
+        [DisplayName("Product Content")]
         public string ProductContent { get; set; }
 
         public string ProductContentPreview { 
